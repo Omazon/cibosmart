@@ -659,6 +659,8 @@
 .cibo-footer-socials a svg { width: 16px; height: 16px; stroke: var(--cibo-text-muted); stroke-width: 1.8; fill: none; }
 
 /* ──────────────── ANIMACIONES ──────────────── */
+html { scroll-behavior: smooth; }
+
 @keyframes cibo-fadeUp {
   from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -667,14 +669,134 @@
   0%, 100% { box-shadow: 0 0 4px var(--cibo-green); }
   50%       { box-shadow: 0 0 10px var(--cibo-green); }
 }
+@keyframes cibo-orb-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50%      { transform: translate3d(12px, -18px, 0) scale(1.04); }
+}
 
-.cibo-hero-badge    { animation: cibo-fadeUp 0.5s ease both; animation-delay: 0.1s; opacity: 0; }
-.cibo-hero-title    { animation: cibo-fadeUp 0.5s ease both; animation-delay: 0.2s; opacity: 0; }
-.cibo-hero-desc     { animation: cibo-fadeUp 0.5s ease both; animation-delay: 0.3s; opacity: 0; }
-.cibo-hero-actions  { animation: cibo-fadeUp 0.5s ease both; animation-delay: 0.4s; opacity: 0; }
-.cibo-hero-stats    { animation: cibo-fadeUp 0.5s ease both; animation-delay: 0.5s; opacity: 0; }
-.cibo-hero-visual   { animation: cibo-fadeUp 0.6s ease both; animation-delay: 0.55s; opacity: 0; }
+.cibo-hero-badge    { animation: cibo-fadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.1s; opacity: 0; }
+.cibo-hero-title    { animation: cibo-fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.18s; opacity: 0; }
+.cibo-hero-desc     { animation: cibo-fadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.28s; opacity: 0; }
+.cibo-hero-actions  { animation: cibo-fadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.38s; opacity: 0; }
+.cibo-hero-stats    { animation: cibo-fadeUp 0.55s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.48s; opacity: 0; }
+.cibo-hero-visual   { animation: cibo-fadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: 0.55s; opacity: 0; }
 .cibo-device-status-dot { animation: cibo-pulse-dot 2s ease-in-out infinite; }
+
+.cibo-navbar {
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.cibo-navbar.is-scrolled {
+  background: rgba(6,16,30,0.94);
+  border-bottom-color: rgba(28,186,138,0.18);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+}
+.cibo-nav-links a {
+  position: relative;
+  transition: color 0.25s ease;
+}
+.cibo-nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--cibo-green);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cibo-nav-links a:hover::after,
+.cibo-nav-links a.is-active::after { transform: scaleX(1); }
+.cibo-nav-links a.is-active { color: var(--cibo-text-main); }
+
+html.cibo-motion .cibo-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  filter: blur(4px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    filter 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--cibo-delay, 0ms);
+  will-change: opacity, transform, filter;
+}
+html.cibo-motion .cibo-reveal.is-in {
+  opacity: 1;
+  transform: none;
+  filter: none;
+  will-change: auto;
+}
+html.cibo-motion .cibo-reveal-left {
+  transform: translateX(-28px);
+}
+html.cibo-motion .cibo-reveal-right {
+  transform: translateX(28px);
+}
+html.cibo-motion .cibo-reveal-scale {
+  transform: translateY(18px) scale(0.97);
+}
+
+html.cibo-motion .cibo-hero-orb-1 { animation: cibo-orb-drift 9s ease-in-out infinite; }
+html.cibo-motion .cibo-hero-orb-2 { animation: cibo-orb-drift 11s ease-in-out infinite reverse; animation-delay: -2s; }
+html.cibo-motion .cibo-hero-orb-3 { animation: cibo-orb-drift 8s ease-in-out infinite; animation-delay: -4s; }
+
+.cibo-service-card,
+.cibo-step-item,
+.cibo-brand-pill,
+.cibo-btn-primary,
+.cibo-btn-ghost,
+.cibo-btn-nav,
+.cibo-btn-wa,
+.cibo-footer-socials a {
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    color 0.25s ease,
+    opacity 0.25s ease,
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.3s ease;
+}
+.cibo-service-card:hover {
+  box-shadow: 0 16px 40px rgba(0,0,0,0.28), 0 0 0 1px rgba(28,186,138,0.12);
+}
+.cibo-step-item.is-in .cibo-step-num {
+  box-shadow: 0 10px 24px rgba(0,0,0,0.28);
+  transition: box-shadow 0.5s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  html.cibo-motion .cibo-reveal,
+  html.cibo-motion .cibo-reveal.is-in {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+  .cibo-hero-badge,
+  .cibo-hero-title,
+  .cibo-hero-desc,
+  .cibo-hero-actions,
+  .cibo-hero-stats,
+  .cibo-hero-visual {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+  html.cibo-motion .cibo-hero-orb-1,
+  html.cibo-motion .cibo-hero-orb-2,
+  html.cibo-motion .cibo-hero-orb-3,
+  .cibo-device-status-dot {
+    animation: none !important;
+  }
+  .cibo-service-card:hover,
+  .cibo-btn-primary:hover,
+  .cibo-btn-ghost:hover,
+  .cibo-btn-nav:hover {
+    transform: none;
+  }
+}
 
 /* ──────────────── RESPONSIVE ──────────────── */
 @media (max-width: 900px) {
@@ -859,7 +981,7 @@
 
   <!-- ══════════════ SERVICIOS ══════════════ -->
   <section class="cibo-section cibo-section-alt" id="servicios">
-    <div class="cibo-section-header cibo-center">
+    <div class="cibo-section-header cibo-center cibo-reveal">
       <div class="cibo-section-tag">Lo que hacemos</div>
       <h2 class="cibo-section-heading">Soluciones para cada espacio</h2>
       <p class="cibo-section-sub">Desde la automatización de luces hasta sistemas de seguridad completos, tenemos la solución ideal.</p>
@@ -867,7 +989,7 @@
 
     <div class="cibo-services-grid">
 
-      <div class="cibo-service-card">
+      <div class="cibo-service-card cibo-reveal" style="--cibo-delay:0ms">
         <div class="cibo-service-icon cibo-green">
           <svg viewBox="0 0 24 24"><path d="M12 2a5 5 0 1 0 0 10A5 5 0 0 0 12 2z"/><line x1="12" y1="12" x2="12" y2="22"/><line x1="8" y1="18" x2="16" y2="18"/></svg>
         </div>
@@ -875,7 +997,7 @@
         <div class="cibo-service-desc">Controla el ambiente de cada habitación desde tu teléfono, por voz o de forma automática según la hora del día.</div>
       </div>
 
-      <div class="cibo-service-card">
+      <div class="cibo-service-card cibo-reveal" style="--cibo-delay:80ms">
         <div class="cibo-service-icon cibo-blue">
           <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
@@ -883,7 +1005,7 @@
         <div class="cibo-service-desc">Videovigilancia HD con acceso remoto, grabación continua, detección de movimiento y alertas en tiempo real.</div>
       </div>
 
-      <div class="cibo-service-card">
+      <div class="cibo-service-card cibo-reveal" style="--cibo-delay:160ms">
         <div class="cibo-service-icon cibo-green">
           <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         </div>
@@ -891,7 +1013,7 @@
         <div class="cibo-service-desc">Integración completa de dispositivos: persianas, cerraduras, enchufes y electrodomésticos en un solo sistema.</div>
       </div>
 
-      <div class="cibo-service-card">
+      <div class="cibo-service-card cibo-reveal" style="--cibo-delay:0ms">
         <div class="cibo-service-icon cibo-blue">
           <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
         </div>
@@ -899,7 +1021,7 @@
         <div class="cibo-service-desc">Panel unificado desde tu smartphone para gestionar toda la automatización de tu hogar desde cualquier lugar.</div>
       </div>
 
-      <div class="cibo-service-card">
+      <div class="cibo-service-card cibo-reveal" style="--cibo-delay:80ms">
         <div class="cibo-service-icon cibo-green">
           <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
         </div>
@@ -907,7 +1029,7 @@
         <div class="cibo-service-desc">Termostatos inteligentes y control de aires acondicionados con programación automática y ahorro energético.</div>
       </div>
 
-      <div class="cibo-service-card">
+      <div class="cibo-service-card cibo-reveal" style="--cibo-delay:160ms">
         <div class="cibo-service-icon cibo-blue">
           <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         </div>
@@ -921,13 +1043,13 @@
   <!-- ══════════════ POR QUÉ CIBO ══════════════ -->
   <section class="cibo-section" id="por-que">
     <div class="cibo-why-grid">
-      <div>
+      <div class="cibo-reveal cibo-reveal-left">
         <div class="cibo-section-tag">¿Por qué elegirnos?</div>
         <h2 class="cibo-section-heading">Tecnología que simplifica tu vida</h2>
         <p class="cibo-section-sub">Somos especialistas en integrar los mejores dispositivos del mercado con instalación profesional y soporte local en Nicaragua.</p>
 
         <div class="cibo-why-list">
-          <div class="cibo-why-item">
+          <div class="cibo-why-item cibo-reveal" style="--cibo-delay:60ms">
             <div class="cibo-why-check">
               <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
@@ -936,7 +1058,7 @@
               <div class="cibo-why-item-desc">Técnicos especializados en domótica con años de experiencia en proyectos residenciales y comerciales.</div>
             </div>
           </div>
-          <div class="cibo-why-item">
+          <div class="cibo-why-item cibo-reveal" style="--cibo-delay:140ms">
             <div class="cibo-why-check">
               <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
@@ -945,7 +1067,7 @@
               <div class="cibo-why-item-desc">Trabajamos con Xiaomi, Tuya, Hikvision, Dahua, TP-Link y más. Siempre la mejor relación precio-calidad.</div>
             </div>
           </div>
-          <div class="cibo-why-item">
+          <div class="cibo-why-item cibo-reveal" style="--cibo-delay:220ms">
             <div class="cibo-why-check">
               <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
@@ -957,7 +1079,7 @@
         </div>
       </div>
 
-      <div class="cibo-cap-panel">
+      <div class="cibo-cap-panel cibo-reveal cibo-reveal-right" style="--cibo-delay:120ms">
         <div class="cibo-cap-panel-title">Capacidades del sistema</div>
         <div class="cibo-cap-grid">
           <div class="cibo-cap-item">
@@ -991,43 +1113,43 @@
 
   <!-- ══════════════ MARCAS ══════════════ -->
   <section class="cibo-section cibo-section-alt" style="padding-top:52px; padding-bottom:52px;">
-    <div class="cibo-section-tag" style="text-align:center; margin-bottom:24px;">Marcas que instalamos</div>
+    <div class="cibo-section-tag cibo-reveal" style="text-align:center; margin-bottom:24px;">Marcas que instalamos</div>
     <div class="cibo-brands-row">
-      <div class="cibo-brand-pill">Hikvision</div>
-      <div class="cibo-brand-pill">Dahua</div>
-      <div class="cibo-brand-pill">Xiaomi</div>
-      <div class="cibo-brand-pill">Tuya Smart</div>
-      <div class="cibo-brand-pill">TP-Link</div>
-      <div class="cibo-brand-pill">Sonoff</div>
-      <div class="cibo-brand-pill">Ezviz</div>
+      <div class="cibo-brand-pill cibo-reveal" style="--cibo-delay:0ms">Hikvision</div>
+      <div class="cibo-brand-pill cibo-reveal" style="--cibo-delay:40ms">Dahua</div>
+      <div class="cibo-brand-pill cibo-reveal" style="--cibo-delay:80ms">Xiaomi</div>
+      <div class="cibo-brand-pill cibo-reveal" style="--cibo-delay:120ms">Tuya Smart</div>
+      <div class="cibo-brand-pill cibo-reveal" style="--cibo-delay:160ms">TP-Link</div>
+      <div class="cibo-brand-pill cibo-reveal" style="--cibo-delay:200ms">Sonoff</div>
+      <div class="cibo-brand-pill cibo-reveal" style="--cibo-delay:240ms">Ezviz</div>
     </div>
   </section>
 
   <!-- ══════════════ PROCESO ══════════════ -->
   <section class="cibo-section" id="proceso">
-    <div class="cibo-section-header cibo-center">
+    <div class="cibo-section-header cibo-center cibo-reveal">
       <div class="cibo-section-tag">Cómo trabajamos</div>
       <h2 class="cibo-section-heading">Tu hogar inteligente en 4 pasos</h2>
       <p class="cibo-section-sub">Un proceso simple, transparente y sin sorpresas.</p>
     </div>
 
     <div class="cibo-steps-grid">
-      <div class="cibo-step-item">
+      <div class="cibo-step-item cibo-reveal" style="--cibo-delay:0ms">
         <div class="cibo-step-num">01</div>
         <div class="cibo-step-title">Consulta gratuita</div>
         <div class="cibo-step-desc">Analizamos tus necesidades y te asesoramos sin compromiso sobre la mejor solución.</div>
       </div>
-      <div class="cibo-step-item">
+      <div class="cibo-step-item cibo-reveal" style="--cibo-delay:90ms">
         <div class="cibo-step-num">02</div>
         <div class="cibo-step-title">Diseño del sistema</div>
         <div class="cibo-step-desc">Planificamos cada dispositivo, conexión y automatización adaptada a tu espacio.</div>
       </div>
-      <div class="cibo-step-item">
+      <div class="cibo-step-item cibo-reveal" style="--cibo-delay:180ms">
         <div class="cibo-step-num">03</div>
         <div class="cibo-step-title">Instalación</div>
         <div class="cibo-step-desc">Nuestro equipo técnico instala y configura todo de manera limpia y profesional.</div>
       </div>
-      <div class="cibo-step-item">
+      <div class="cibo-step-item cibo-reveal" style="--cibo-delay:270ms">
         <div class="cibo-step-num">04</div>
         <div class="cibo-step-title">Soporte &amp; garantía</div>
         <div class="cibo-step-desc">Te capacitamos en el uso y brindamos soporte continuo para que disfrutes sin preocupaciones.</div>
@@ -1036,14 +1158,14 @@
   </section>
 
   <!-- ══════════════ INSTAGRAM ══════════════ -->
-  <section class="cibo-section" id="instagram" aria-label="Instagram">
+  <section class="cibo-section cibo-reveal cibo-reveal-scale" id="instagram" aria-label="Instagram">
     <!-- Elfsight Instagram Feed | cibosmart Instagram -->
     <script src="https://elfsightcdn.com/platform.js" async></script>
     <div class="elfsight-app-186e6125-25f4-4c76-b225-8df850b2e543" data-elfsight-app-lazy></div>
   </section>
 
   <!-- ══════════════ CTA FINAL ══════════════ -->
-  <section class="cibo-cta-section" id="contacto">
+  <section class="cibo-cta-section cibo-reveal" id="contacto">
     <div class="cibo-section-tag" style="text-align:center; margin-bottom:16px;">Da el primer paso</div>
     <h2 class="cibo-cta-title">¿Listo para un hogar<br><span class="cibo-accent">verdaderamente inteligente?</span></h2>
     <p class="cibo-cta-desc">Contáctanos hoy y recibe una consulta gratuita. Diseñamos la solución ideal para tu casa o negocio en Nicaragua.</p>
@@ -1080,9 +1202,16 @@
 
   <script>
   (function() {
+    var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduceMotion) document.documentElement.classList.add('cibo-motion');
+
     var nav = document.querySelector('.cibo-navbar');
     var toggle = document.querySelector('.cibo-nav-toggle');
     var menu = document.getElementById('cibo-nav-menu');
+    var navLinks = document.querySelectorAll('.cibo-nav-links a[href^="#"]');
+    var sections = ['servicios', 'por-que', 'proceso', 'contacto']
+      .map(function(id) { return document.getElementById(id); })
+      .filter(Boolean);
 
     function setNavOpen(open) {
       if (!nav || !toggle) return;
@@ -1105,8 +1234,53 @@
       if (e.key === 'Escape') setNavOpen(false);
     });
     window.addEventListener('resize', function() {
-      if (window.innerWidth > 900) setNavOpen(false);
+      if (window.innerWidth > 1024) setNavOpen(false);
     });
+
+    function onScrollChrome() {
+      if (!nav) return;
+      nav.classList.toggle('is-scrolled', window.scrollY > 12);
+      var activeId = '';
+      var marker = window.scrollY + 120;
+      sections.forEach(function(sec) {
+        if (sec.offsetTop <= marker) activeId = sec.id;
+      });
+      navLinks.forEach(function(link) {
+        var href = link.getAttribute('href');
+        link.classList.toggle('is-active', href === '#' + activeId);
+      });
+    }
+    window.addEventListener('scroll', onScrollChrome, { passive: true });
+    onScrollChrome();
+
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+      anchor.addEventListener('click', function(e) {
+        var id = this.getAttribute('href');
+        if (!id || id === '#') return;
+        var target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        var top = target.getBoundingClientRect().top + window.pageYOffset - 72;
+        window.scrollTo({ top: top, behavior: reduceMotion ? 'auto' : 'smooth' });
+        setNavOpen(false);
+      });
+    });
+
+    var reveals = document.querySelectorAll('.cibo-reveal');
+    if (reduceMotion) {
+      reveals.forEach(function(el) { el.classList.add('is-in'); });
+    } else if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-in');
+          io.unobserve(entry.target);
+        });
+      }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+      reveals.forEach(function(el) { io.observe(el); });
+    } else {
+      reveals.forEach(function(el) { el.classList.add('is-in'); });
+    }
 
     var toggles = document.querySelectorAll('.cibo-toggle-track[data-light]');
     toggles.forEach(function(btn) {
