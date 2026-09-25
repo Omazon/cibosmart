@@ -29,12 +29,12 @@
   width: 100%;
 }
 
-.cibo-page-wrapper *, 
-.cibo-page-wrapper *::before, 
-.cibo-page-wrapper *::after { 
-  box-sizing: border-box; 
-  margin: 0; 
-  padding: 0; 
+.cibo-page-wrapper *,
+.cibo-page-wrapper *::before,
+.cibo-page-wrapper *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 /* ──────────────── CSS TOKENS ──────────────── */
@@ -644,7 +644,16 @@
 }
 .cibo-footer-logo { display: flex; align-items: center; text-decoration: none; }
 .cibo-footer-logo img { height: 40px; width: auto; display: block; }
+.cibo-footer-meta { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
 .cibo-footer-copy { font-size: 12px; color: var(--cibo-text-muted); }
+.cibo-footer-legal {
+  font-size: 12px;
+  color: var(--cibo-text-muted);
+  text-decoration-color: var(--cibo-green);
+  text-underline-offset: 4px;
+  transition: color 0.2s;
+}
+.cibo-footer-legal:hover { color: var(--cibo-text-main); }
 .cibo-footer-socials { display: flex; gap: 14px; }
 .cibo-footer-socials a {
   width: 34px; height: 34px;
@@ -1186,7 +1195,10 @@ html.cibo-motion .cibo-hero-orb-3 { animation: cibo-orb-drift 8s ease-in-out inf
     <a href="#" class="cibo-footer-logo">
       <img src="1726549952826.png" alt="CIBO Smart">
     </a>
-    <p class="cibo-footer-copy">© 2026 CIBO Smart · Nicaragua. Todos los derechos reservados.</p>
+    <div class="cibo-footer-meta">
+      <p class="cibo-footer-copy">© 2026 CIBO Smart · Nicaragua. Todos los derechos reservados.</p>
+      <a href="/privacy.html" class="cibo-footer-legal">Privacy Policy</a>
+    </div>
     <div class="cibo-footer-socials">
       <a href="#" aria-label="Instagram">
         <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
